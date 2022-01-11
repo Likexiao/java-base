@@ -1,4 +1,4 @@
-package com.javabase.enity;
+package com.java.base.enity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
