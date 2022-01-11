@@ -3,14 +3,17 @@ package com.java.base.redis;
 import lombok.Synchronized;
 import redis.clients.jedis.Jedis;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class RedisSingle {
     private static Jedis jedis;
-     public static Jedis getRedis(){
+
+    /**
+     * 能复述
+     *
+     * @return {@link Jedis}
+     */
+    public static Jedis getRedis(){
          if (jedis == null){
               jedis = new Jedis("127.0.0.1",6379);
              System.out.println("创建成功，获取到Redis单例");
@@ -20,7 +23,14 @@ public class RedisSingle {
          }
         return jedis;
     }
-    public static byte[] serializable(Object object){
+
+    /**
+     * 可序列化
+     *
+     * @param object 对象
+     * @return {@link byte[]}
+     */
+    public static byte[] serializable(Object object) throws IOException {
         ObjectOutputStream oos =null;
         ByteArrayOutputStream bos = null;
         try {
@@ -31,20 +41,29 @@ public class RedisSingle {
             return result;
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            bos.close();
+            oos.close();
         }
         return null;
     }
-    public static Object unSerializable(byte[] bytes){
-        ByteArrayInputStream bis;
-        ObjectInputStream ois;
+    public static Object unSerializable(byte[] bytes) throws IOException {
+        ByteArrayInputStream bis = null;
+        ObjectInputStream ois = null;
         try {
             bis = new ByteArrayInputStream(bytes);
             ois = new ObjectInputStream(bis);
 
             Object result = ois.readObject();
+
             return  result;
+
+
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            bis.close();
+            ois.close();
         }
             return null;
     }
