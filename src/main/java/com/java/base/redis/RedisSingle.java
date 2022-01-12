@@ -7,7 +7,8 @@ import java.io.*;
 
 public class RedisSingle {
     private static Jedis jedis;
-
+    private static String url = "127.0.0.1";
+    private static int port = 6379;
     /**
      * 能复述
      *
@@ -15,7 +16,9 @@ public class RedisSingle {
      */
     public static Jedis getRedis(){
          if (jedis == null){
-              jedis = new Jedis("127.0.0.1",6379);
+
+              jedis = new Jedis(url,port);
+              jedis.select(1);
              System.out.println("创建成功，获取到Redis单例");
          }
          else {
