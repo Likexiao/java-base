@@ -35,7 +35,7 @@ public class TestRedisSerializable {
 
 
 
-/*        byte[] str = jedis.get("hmserializable".getBytes());
+        byte[] str = jedis.get("hmserializable".getBytes());
 //        Map<String, User> map4 = (Map<String, User>) RedisSingle.unSerializable(str);
         Map<String, User> map4 = (Map<String, User>) IoUtil.readObj(new ByteArrayInputStream(str));
 
@@ -47,6 +47,6 @@ public class TestRedisSerializable {
         for(Map.Entry<String,User> entry : entrySet){
             System.out.println("key: "+entry.getKey());
             System.out.println("value: "+entry.getValue());
-        }*/
+        }
     }
 }
