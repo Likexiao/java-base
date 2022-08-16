@@ -17,7 +17,7 @@ public class RedisFactory {
     /**
      * The constant url.
      */
-    public static final String url = "127.0.0.1";
+    public static final String url = "172.26.236.194";
     /**
      * The constant port.
      */
