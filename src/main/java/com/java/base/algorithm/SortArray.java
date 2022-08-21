@@ -2,7 +2,7 @@ package com.java.base.algorithm;
 
 public class SortArray {
     public int[] sortArray(int[] nums) {
-
+        return new int[nums.length];
     }
     public void quicksort(int[] nums,int l,int r){
 
