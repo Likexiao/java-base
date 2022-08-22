@@ -1,6 +1,7 @@
 package com.java.base.algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Permute {
@@ -8,35 +9,37 @@ public class Permute {
     List<List<Integer>> results = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
     public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
 
-        if(nums.length == 0){
-            return results;
+        List<Integer> output = new ArrayList<Integer>();
+        for (int num : nums) {
+            output.add(num);
         }
-        System.out.println(results);
-        dfs(nums,path,results);
-        System.out.println(results);
-        return results;
-    }
-    public void dfs(int[] nums, List<Integer> path,List<List<Integer>> r) {
-        if(path.size() == nums.length){
-            System.out.println("将list加入result"+path);
 
-            r.add(path);
-            System.out.println("result:"+r);
-            return;
+        int n = nums.length;
+        backtrack(n, output, res, 0);
+        return res;
+    }
+
+    public void backtrack(int n, List<Integer> output, List<List<Integer>> res, int first) {
+        // 所有数都填完了
+        if (first == n) {
+            res.add(new ArrayList<Integer>(output));
         }
-        for(int i=0;i< nums.length;i++){
-            if(path.contains(nums[i])){
-                continue;
-            }
-            path.add(nums[i]);
-            dfs(nums,path,r);
-            path.remove(path.size()-1);
+        for (int i = first; i < n; i++) {
+            // 动态维护数组
+            Collections.swap(output, first, i);
+            // 继续递归填下一个数
+            backtrack(n, output, res, first + 1);
+            // 撤销操作
+            Collections.swap(output, first, i);
         }
     }
+
 
     public static void main(String[] args) {
         int[] nums = new int[]{1, 0};
         List<List<Integer>> list = new Permute().permute(nums);
+        System.out.println(list);
     }
 }
